@@ -1,52 +1,59 @@
 {
   "destaques": [
     {
-      "nome": "AWS Academy Graduate — Cloud Foundations",
-      "instituicao": "AWS Academy",
-      "tipo": "Certificado de conclusão",
-      "emissao": null,
-      "link": null
-    },
-    {
-      "nome": "AWS Academy Graduate — Generative AI Foundations",
-      "instituicao": "AWS Academy",
-      "tipo": "Certificado de conclusão",
-      "emissao": null,
+      "nome": "AWS She Builds Mentorship Program (mentorada)",
+      "instituicao": "AWS",
+      "tipo": "Programa de mentoria",
+      "emissao": "2026 (em andamento)",
       "link": null
     },
     {
       "nome": "AWS Cloud Quest: Cloud Practitioner",
-      "instituicao": "Amazon Web Services",
+      "instituicao": "AWS",
       "tipo": "Training Badge",
-      "emissao": null,
+      "emissao": "2026",
       "link": null
     },
     {
-      "nome": "Google Cloud Computing Foundations Certificate",
+      "nome": "AWS Academy Generative AI Foundations",
+      "instituicao": "AWS",
+      "tipo": "Certificado de conclusão",
+      "emissao": "2026",
+      "link": null
+    },
+    {
+      "nome": "AWS Academy Cloud Foundations",
+      "instituicao": "AWS",
+      "tipo": "Certificado de conclusão",
+      "emissao": "2026",
+      "link": null
+    },
+    {
+      "nome": "Google Cloud Computing Foundations",
       "instituicao": "Google Cloud",
       "tipo": "Certificado de conclusão",
-      "emissao": null,
+      "emissao": "2026",
       "link": null
     },
     {
-      "nome": "Build a Secure Google Cloud Network",
-      "instituicao": "Google Cloud",
-      "tipo": "Badge de treinamento",
-      "emissao": null,
+      "nome": "Conceitos de Redes de Computadores",
+      "instituicao": "CESAR School",
+      "tipo": "Curso",
+      "emissao": "2025",
       "link": null
     },
     {
-      "nome": "Implement Load Balancing on Compute Engine",
-      "instituicao": "Google Cloud",
-      "tipo": "Badge de treinamento",
-      "emissao": null,
+      "nome": "Programador de Sistemas",
+      "instituicao": "Senac SC",
+      "tipo": "Curso",
+      "emissao": "2025",
       "link": null
     },
     {
       "nome": "Segurança de Endpoint",
-      "instituicao": "Cisco",
+      "instituicao": "CISCO",
       "tipo": "Curso",
-      "emissao": null,
+      "emissao": "2024",
       "link": null
     }
   ]
