@@ -1,0 +1,60 @@
+{
+  "destaques": [
+    {
+      "nome": "AWS She Builds Mentorship Program (mentorada)",
+      "instituicao": "AWS",
+      "tipo": "Programa de mentoria",
+      "emissao": "2026 (em andamento)",
+      "link": null
+    },
+    {
+      "nome": "AWS Cloud Quest: Cloud Practitioner",
+      "instituicao": "AWS",
+      "tipo": "Training Badge",
+      "emissao": "2026",
+      "link": null
+    },
+    {
+      "nome": "AWS Academy Generative AI Foundations",
+      "instituicao": "AWS",
+      "tipo": "Certificado de conclusão",
+      "emissao": "2026",
+      "link": null
+    },
+    {
+      "nome": "AWS Academy Cloud Foundations",
+      "instituicao": "AWS",
+      "tipo": "Certificado de conclusão",
+      "emissao": "2026",
+      "link": null
+    },
+    {
+      "nome": "Google Cloud Computing Foundations",
+      "instituicao": "Google Cloud",
+      "tipo": "Certificado de conclusão",
+      "emissao": "2026",
+      "link": null
+    },
+    {
+      "nome": "Conceitos de Redes de Computadores",
+      "instituicao": "CESAR School",
+      "tipo": "Curso",
+      "emissao": "2025",
+      "link": null
+    },
+    {
+      "nome": "Programador de Sistemas",
+      "instituicao": "Senac SC",
+      "tipo": "Curso",
+      "emissao": "2025",
+      "link": null
+    },
+    {
+      "nome": "Segurança de Endpoint",
+      "instituicao": "CISCO",
+      "tipo": "Curso",
+      "emissao": "2024",
+      "link": null
+    }
+  ]
+}
