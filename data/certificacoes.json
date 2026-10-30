@@ -1,3 +1,4 @@
+
 {
   "destaques": [
     {
@@ -12,28 +13,28 @@
       "instituicao": "AWS",
       "tipo": "Training Badge",
       "emissao": "2026",
-      "link": null
+      "link": "https://www.credly.com/badges/c9c12b35-49e1-4e83-881f-01d953ebf176"
     },
     {
       "nome": "AWS Academy Generative AI Foundations",
       "instituicao": "AWS",
       "tipo": "Certificado de conclusão",
       "emissao": "2026",
-      "link": null
+      "link": "https://www.credly.com/badges/e8cd00de-e29b-45ce-9e61-ac96cb2cd9e3"
     },
     {
       "nome": "AWS Academy Cloud Foundations",
       "instituicao": "AWS",
       "tipo": "Certificado de conclusão",
       "emissao": "2026",
-      "link": null
+      "link": "https://www.credly.com/badges/58c6c11e-a150-4bf7-8f32-cc86ebc989d7"
     },
     {
       "nome": "Google Cloud Computing Foundations",
       "instituicao": "Google Cloud",
       "tipo": "Certificado de conclusão",
       "emissao": "2026",
-      "link": null
+      "link": "https://www.credly.com/badges/2bc0dc37-a482-487d-be53-7142bb8ba96c"
     },
     {
       "nome": "Conceitos de Redes de Computadores",
@@ -54,7 +55,8 @@
       "instituicao": "CISCO",
       "tipo": "Curso",
       "emissao": "2024",
-      "link": null
+      "link": "https://www.credly.com/badges/e556605d-69f4-4479-b1bf-2e0a8aeeb56e"
     }
   ]
 }
+
