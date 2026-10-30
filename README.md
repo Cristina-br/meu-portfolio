@@ -1,43 +1,57 @@
-# Portfólio profissional — Cristina Elena Campos
 
-Site estático em HTML, CSS e JavaScript puro, preparado para publicação no GitHub Pages.
+# Cristina Elena Campos — Portfólio Profissional
 
-## Publicação no GitHub Pages
+🔗 **[Acessar o site](https://cristina-br.github.io/meu-portfolio/)**
 
-1. Acesse **Settings > Pages** no repositório.
-2. Em **Build and deployment**, selecione **Deploy from a branch**.
-3. Em **Branch**, escolha a branch principal e a pasta **/(root)**.
-4. Salve e aguarde a publicação.
+Portfólio profissional com minha trajetória, experiência em segurança SSL, formação em tecnologia e foco em Infraestrutura de TI e Cloud Computing.
 
-## Atualizações rápidas
+## Sobre o projeto
 
-### Adicionar foto profissional
+Site estático desenvolvido com HTML, CSS e JavaScript puro, hospedado no GitHub Pages. Os dados de certificações e laboratórios são gerenciados via arquivos JSON, facilitando atualizações sem alterações no layout.
 
-- Substitua o arquivo:
-  - `/assets/images/foto-profissional-placeholder.svg`
-- Ou altere o caminho da imagem na seção Hero no arquivo `/index.html`.
+## Tecnologias
 
-### Adicionar currículo em PDF
+- HTML5 semântico
+- CSS3
+- JavaScript puro
+- GitHub Pages
 
-1. Adicione o PDF ao repositório (exemplo: `/assets/docs/curriculo-cristina.pdf`).
-2. No arquivo `/script.js`, altere `profileLinks.curriculoPdf` para o caminho do PDF.
-3. O botão "Currículo (PDF)" aparecerá automaticamente no Hero.
+## Estrutura do projeto
 
-### Adicionar certificado em destaque
+    ├── assets/images/       # Imagens e favicon
+    ├── data/                # Dados em JSON (certificações, laboratórios)
+    ├── index.html           # Página principal
+    ├── styles.css           # Estilos
+    ├── script.js            # Lógica de renderização
+    └── README.md
 
-1. Edite `/data/certificacoes.json`.
-2. Adicione um novo item em `destaques` com os campos:
-   - `nome`
-   - `instituicao`
-   - `tipo`
-   - `emissao` (ou `null`)
-   - `link` (ou `null`)
+## Como atualizar
 
-### Adicionar laboratório
+<details>
+<summary>Adicionar currículo em PDF</summary>
 
-1. Crie a documentação completa do laboratório em Markdown no GitHub (por exemplo em `/labs`).
-2. Edite `/data/laboratorios.json` e adicione um item em `itens` com:
-   - `titulo`
-   - `plataforma`
-   - `objetivo`
-   - `linkDocumentacao` (quando disponível)
+1. Adicione o PDF ao repositório (ex: `assets/docs/curriculo-cristina.pdf`).
+2. No `script.js`, altere `profileLinks.curriculoPdf` para o caminho do PDF.
+3. O botão aparece automaticamente no site.
+
+</details>
+
+<details>
+<summary>Adicionar certificado</summary>
+
+1. Edite `data/certificacoes.json`.
+2. Adicione um item em `destaques` com: `nome`, `instituicao`, `tipo`, `emissao` e `link`.
+
+</details>
+
+<details>
+<summary>Adicionar laboratório</summary>
+
+1. Crie a documentação em Markdown (ex: pasta `/labs`).
+2. Edite `data/laboratorios.json` e adicione um item em `itens` com: `titulo`, `plataforma`, `objetivo` e `linkDocumentacao`.
+
+</details>
+
+---
+
+Feito com ☁️ e ☕ por Cristina Elena Campos — 2026
