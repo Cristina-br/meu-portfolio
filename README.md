@@ -22,6 +22,10 @@ Site estático desenvolvido com HTML, CSS e JavaScript puro, hospedado em arquit
 - **Cloudflare DNS:** Gerenciamento de zona DNS com *CNAME Flattening* no domínio raiz e regra de redirecionamento `301` (`www` para domínio raiz).
 - **GitHub Actions (OIDC):** Pipeline de CI/CD para sincronização automática com o bucket S3 e invalidação de cache no CloudFront a cada *push* na branch `main`, sem uso de chaves estáticas de acesso.
 
+## Laboratórios Documentados
+
+* **[Lab 01 — Hospedagem Cloud-Native com AWS (S3, CloudFront, ACM), Cloudflare e CI/CD](./labs/hospedagem-aws-cloudfront.md):** Documentação completa da arquitetura, decisões de segurança (OAC, menor privilégio no IAM), gerenciamento de DNS e *troubleshooting* de autenticação OIDC.
+
 ## Estrutura do projeto
 
     ├── .github/workflows/   # Pipeline de deploy contínuo (CI/CD) para AWS S3 e CloudFront
@@ -58,6 +62,7 @@ Site estático desenvolvido com HTML, CSS e JavaScript puro, hospedado em arquit
 
 1. Crie a documentação em Markdown na pasta `labs/` (e salve eventuais prints em `labs/assets/`).
 2. Edite `data/laboratorios.json` e adicione um item em `itens` com: `titulo`, `plataforma`, `objetivo` e `linkDocumentacao`.
+3. Adicione o link correspondente na seção **Laboratórios Documentados** deste `README.md`.
 
 </details>
 
