@@ -77,14 +77,30 @@ Como o protocolo DNS tradicional não permite registros `CNAME` na raiz de um do
 
 ## 4. Troubleshooting e Lições Aprendidas
 
-* **Sintaxe de continuação de linha no Shell (Exit Code 127):** Ao adicionar novas exclusões (`--exclude "labs/*"`) no comando `aws s3 sync` dentro do YAML do GitHub Actions, a ausência da barra invertida (`\`) na linha anterior fez o runner interpretar `--exclude` como um comando independente. O ajuste da quebra de linha resolveu a execução do pipeline.
-* **Desativação definitiva do GitHub Pages:** Após a migração, apenas clicar em *Unpublish site* não impedia novas publicações automáticas a cada *commit* na `main`. A solução foi alterar a fonte (*Source*) de *Deploy from a branch* para *GitHub Actions* sem workflow de Pages associado e despublicar o ambiente.
-* **Interação entre Proxy Cloudflare e CloudFront:** Manter o registro raiz em modo *DNS Only* simplifica a cadeia de certificados SSL e garante que os cabeçalhos e métricas de cache sejam controlados diretamente pela AWS.
+### 4.1. Falha de Autenticação OIDC (`Not authorized to perform sts:AssumeRoleWithWebIdentity`)
+* **Sintoma:** Durante a configuração do pipeline no GitHub Actions, o passo `aws-actions/configure-aws-credentials@v4` falhava ao tentar assumir a *IAM Role* na AWS, mesmo com `permissions: id-token: write` e o ARN da role devidamente configurados.
+* **Diagnóstico:** A rejeição pelo AWS STS indicava incompatibilidade entre o atributo `sub` (*Subject*) enviado no token JWT pelo GitHub e a condição configurada na *Trust Policy* da *IAM Role*. Para diagnosticar sem suposições, foi adicionado temporariamente um passo de inspeção do token no workflow.
+* **Causa Raiz:** O GitHub estava emitindo o token OIDC utilizando o formato estendido com os IDs numéricos imutáveis da conta e do repositório (proteção contra *repository/username hijacking*), enquanto a *Trust Policy* aguardava o formato tradicional baseado apenas nos nomes:
+  * **Esperado inicialmente:** `repo:Cristina-br/meu-portfolio:ref:refs/heads/main`
+  * **Enviado pelo GitHub:** `repo:Cristina-br@<USER_ID>/meu-portfolio@<REPO_ID>:ref:refs/heads/main`
+* **Solução:** Atualização da **Trust Policy** (Relação de Confiança) da *IAM Role* com o `sub` exato contendo os IDs imutáveis e alteração do operador de condição de `StringLike` para `StringEquals`, tornando a validação mais restritiva. Após a validação do pipeline, o passo de debug foi removido do YAML e os logs da execução de teste foram excluídos por higiene de segurança.
+* **Lições:**
+  * Diferenciar claramente **Trust Policy** (quem pode assumir a role) de **Permissions Policy** (quais ações a role pode executar na AWS) evita alterações no lugar errado durante o troubleshooting.
+  * Utilizar o construtor visual do console IAM para gerar políticas customizadas e revisar o JSON resultante permite aplicar menor privilégio com segurança mesmo sem decorar toda a sintaxe da linguagem de políticas da AWS.
+  * Em falhas de OIDC, inspecionar as *claims* reais do token ou consultar os IDs imutáveis via API do GitHub evita tentativas às cegas.
+
+---
+
+### 4.2. Limitação do DNS Nativo do Registro.br com o Amazon CloudFront
+* **Sintoma:** Tentativa inicial de gerenciar toda a zona DNS diretamente no painel do Registro.br, porém o sistema não permitia apontar o domínio raiz (`cristinaecampos.com.br`) para o endpoint do CloudFront.
+* **Causa Raiz:** O CloudFront fornece um domínio dinâmico (`CNAME` `*.cloudfront.net`) sem endereço IPv4 estático dedicado, enquanto o padrão tradicional de DNS (RFC 1034/1035) utilizado pelo Registro.br não permite registros `CNAME` no ápice da zona (*Zone Apex*).
+* **Solução:** Migração dos *nameservers* no Registro.br para a **Cloudflare**, aproveitando o recurso de **CNAME Flattening** para resolver o domínio raiz no nível de DNS sem comprometer a compatibilidade com o CloudFront e o SSL do ACM.
 
 ---
 
 ## 5. Próximos Passos
 
-* [ ] Adicionar evidências visuais (prints das configurações AWS, Cloudflare e Actions) na pasta `labs/assets/`.
-* [ ] Implementar monitoramento básico de custos (AWS Budgets) e métricas de requisições no CloudFront.
-* [ ] Evoluir a arquitetura para suportar uma seção de blog técnico.
+* [ ] Subir os prints das configurações (IAM Policy, Cloudflare DNS/Redirect Rule e GitHub Actions) para `labs/assets/` e vinculá-los nesta documentação.
+* [ ] Implementar backend serverless (AWS Lambda + API Gateway + Amazon SES) para o formulário de contato com envio autenticado pelo domínio próprio (`@cristinaecampos.com.br` e registros SPF/DKIM/DMARC na Cloudflare).
+* [ ] Configurar alertas de orçamento no **AWS Budgets** e monitorar métricas de requisições no CloudFront.
+* [ ] Evoluir a arquitetura para suportar uma seção de blog técnico no portfólio.
