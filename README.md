@@ -6,7 +6,7 @@ Portfólio profissional com minha trajetória, experiência em segurança SSL/TL
 
 ## Sobre o projeto
 
-Site estático desenvolvido com HTML, CSS e JavaScript puro, hospedado em arquitetura *cloud-native* na **AWS** com entrega global via CDN, HTTPS gerenciado e deploy contínuo automatizado. Os dados de certificações e laboratórios são estruturados em arquivos JSON para facilitar atualizações sem alterar o layout.
+Site estático desenvolvido com HTML, CSS e JavaScript puro, hospedado em arquitetura *cloud-native* na **AWS** com entrega global via CDN, HTTPS gerenciado e deploy contínuo automatizado. As certificações e laboratórios são carregados a partir de arquivos JSON, permitindo adicionar novos itens editando apenas os dados, sem precisar mexer no código HTML ou CSS.
 
 ## Arquitetura e Tecnologias
 
