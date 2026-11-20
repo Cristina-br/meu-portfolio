@@ -1,3 +1,10 @@
 {
-  "itens": []
+  "itens": [
+    {
+      "titulo": "Hospedagem Cloud-Native com S3, CloudFront, ACM e CI/CD",
+      "plataforma": "AWS & Cloudflare",
+      "objetivo": "Implantar portfólio estático em bucket S3 privado (OAC), distribuído globalmente via CloudFront com HTTPS gerenciado (ACM), DNS via Cloudflare (CNAME Flattening e redirect 301) e deploy contínuo sem chaves estáticas usando GitHub Actions (OIDC).",
+      "linkDocumentacao": "https://github.com/Cristina-br/meu-portfolio/blob/main/labs/hospedagem-aws-cloudfront.md"
+    }
+  ]
 }
