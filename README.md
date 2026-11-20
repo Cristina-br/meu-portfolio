@@ -1,23 +1,30 @@
-
 # Cristina Elena Campos — Portfólio Profissional
 
-🔗 **[Acessar o site](https://cristina-br.github.io/meu-portfolio/)**
+🔗 **[Acessar o site](https://cristinaecampos.com.br)**
 
-Portfólio profissional com minha trajetória, experiência em segurança SSL, formação em tecnologia e foco em Infraestrutura de TI e Cloud Computing.
+Portfólio profissional com minha trajetória, experiência em segurança SSL/TLS, formação em tecnologia e foco em Infraestrutura de TI e Cloud Computing.
 
 ## Sobre o projeto
 
-Site estático desenvolvido com HTML, CSS e JavaScript puro, hospedado no GitHub Pages. Os dados de certificações e laboratórios são gerenciados via arquivos JSON, facilitando atualizações sem alterações no layout.
+Site estático desenvolvido com HTML, CSS e JavaScript puro, hospedado em arquitetura *cloud-native* na **AWS** com entrega global via CDN, HTTPS gerenciado e deploy contínuo automatizado. Os dados de certificações e laboratórios são estruturados em arquivos JSON para facilitar atualizações sem alterar o layout.
 
-## Tecnologias
+## Arquitetura e Tecnologias
 
+### Front-end
 - HTML5 semântico
 - CSS3
-- JavaScript puro
-- GitHub Pages
+- JavaScript puro (renderização dinâmica via JSON)
+
+### Cloud, Rede e CI/CD
+- **Amazon S3:** Armazenamento privado dos arquivos estáticos da aplicação.
+- **Amazon CloudFront:** Distribuição de conteúdo (CDN) com HTTPS forçado e cache na borda.
+- **AWS Certificate Manager (ACM):** Emissão e renovação automática de certificado SSL/TLS via validação DNS.
+- **Cloudflare DNS:** Gerenciamento de zona DNS com *CNAME Flattening* no domínio raiz e regra de redirecionamento `301` (`www` para domínio raiz).
+- **GitHub Actions (OIDC):** Pipeline de CI/CD para sincronização automática com o bucket S3 a cada *push* na branch `main`, sem uso de chaves estáticas de acesso.
 
 ## Estrutura do projeto
 
+    ├── .github/workflows/   # Pipeline de deploy contínuo (CI/CD) para AWS S3
     ├── assets/images/       # Imagens e favicon
     ├── data/                # Dados em JSON (certificações, laboratórios)
     ├── index.html           # Página principal
