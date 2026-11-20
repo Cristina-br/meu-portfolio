@@ -30,6 +30,7 @@ jobs:
             --exclude ".git/*" \
             --exclude ".github/*" \
             --exclude "README.md"
+            --exclude "labs/*"
 
       - name: Invalidar cache do CloudFront
         run: |
