@@ -43,7 +43,8 @@ Migrar a hospedagem de um portfólio estático (HTML, CSS e JavaScript puro) do 
 * **Decisão:** O bucket S3 foi configurado com **Block All Public Access** ativado (sem *Static Website Hosting* público).
 * **Por quê:** Evita a exposição direta do bucket na internet e impede que usuários contornem as políticas de cache e segurança da CDN. O acesso aos objetos é restrito exclusivamente à distribuição do CloudFront por meio de **Origin Access Control (OAC)** e uma *Bucket Policy* específica.
 
-> *[Espaço para print: Configuração do Origin Access Control no CloudFront ou Bucket Policy no S3]*
+![Configuração do Origin Access Control (OAC) no CloudFront](./assets/cloudfront_oac_config.png)
+*Figura 1 — Origem S3 configurada com Origin Access Control (OAC) no Amazon CloudFront.*
 
 ---
 
@@ -60,7 +61,8 @@ Como o protocolo DNS tradicional não permite registros `CNAME` na raiz de um do
 * **Subdomínio `www` (`www.cristinaecampos.com.br`):** Configurado com proxy ativado (**Proxied / nuvem laranja**) e uma **Redirect Rule (HTTP 301)** que redireciona permanentemente qualquer requisição para `https://cristinaecampos.com.br`, preservando o caminho (`URI Path`) e os parâmetros (`Query String`).
 * **HTTPS Forçado:** Ativado nativamente no *Behavior* do CloudFront (`Redirect HTTP to HTTPS`).
 
-> *[Espaço para print: Tabela DNS e Redirect Rule configuradas na Cloudflare]*
+![Registros DNS configurados na Cloudflare](./assets/cloudflare_dns_records.png)
+*Figura 2 — Tabela DNS na Cloudflare com CNAME Flattening no domínio raiz e validação CNAME do certificado ACM.*
 
 ---
 
@@ -71,7 +73,8 @@ Como o protocolo DNS tradicional não permite registros `CNAME` na raiz de um do
   2. Sincronização dos arquivos estáticos com `aws s3 sync . s3://$S3_BUCKET_NAME --delete`, excluindo arquivos internos do repositório (`.git/*`, `.github/*`, `README.md`, `labs/*`).
   3. Criação de invalidação no CloudFront (`/*`) para garantir que alterações no site reflitam imediatamente na borda.
 
-> *[Espaço para print: Execução com sucesso do workflow no GitHub Actions]*
+![Política IAM customizada aplicando o princípio do menor privilégio](./assets/iam_policy_menor_privilegio_deploy.png)
+*Figura 3 — Política de permissões (IAM Policy) restrita apenas às operações de sincronização no bucket S3 e invalidação de cache no CloudFront.*
 
 ---
 
@@ -84,6 +87,10 @@ Como o protocolo DNS tradicional não permite registros `CNAME` na raiz de um do
   * **Esperado inicialmente:** `repo:Cristina-br/meu-portfolio:ref:refs/heads/main`
   * **Enviado pelo GitHub:** `repo:Cristina-br@<USER_ID>/meu-portfolio@<REPO_ID>:ref:refs/heads/main`
 * **Solução:** Atualização da **Trust Policy** (Relação de Confiança) da *IAM Role* com o `sub` exato contendo os IDs imutáveis e alteração do operador de condição de `StringLike` para `StringEquals`, tornando a validação mais restritiva. Após a validação do pipeline, o passo de debug foi removido do YAML e os logs da execução de teste foram excluídos por higiene de segurança.
+
+![Relação de confiança (Trust Relationship) OIDC restrita ao repositório](./assets/iam_trust_relationship_oidc_github_actions.png)
+*Figura 4 — Relação de confiança (Trust Policy) configurada com `StringEquals` e os IDs imutáveis do repositório no GitHub.*
+
 * **Lições:**
   * Diferenciar claramente **Trust Policy** (quem pode assumir a role) de **Permissions Policy** (quais ações a role pode executar na AWS) evita alterações no lugar errado durante o troubleshooting.
   * Utilizar o construtor visual do console IAM para gerar políticas customizadas e revisar o JSON resultante permite aplicar menor privilégio com segurança mesmo sem decorar toda a sintaxe da linguagem de políticas da AWS.
