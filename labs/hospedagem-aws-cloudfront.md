@@ -44,6 +44,7 @@ Migrar a hospedagem de um portfólio estático (HTML, CSS e JavaScript puro) do 
 * **Por quê:** Evita a exposição direta do bucket na internet e impede que usuários contornem as políticas de cache e segurança da CDN. O acesso aos objetos é restrito exclusivamente à distribuição do CloudFront por meio de **Origin Access Control (OAC)** e uma *Bucket Policy* específica.
 
 ![Configuração do Origin Access Control (OAC) no CloudFront](./assets/cloudfront_oac_config.png)
+
 *Figura 1 — Origem S3 configurada com Origin Access Control (OAC) no Amazon CloudFront.*
 
 ---
@@ -62,6 +63,7 @@ Como o protocolo DNS tradicional não permite registros `CNAME` na raiz de um do
 * **HTTPS Forçado:** Ativado nativamente no *Behavior* do CloudFront (`Redirect HTTP to HTTPS`).
 
 ![Registros DNS configurados na Cloudflare](./assets/cloudflare_dns_records.png)
+
 *Figura 2 — Tabela DNS na Cloudflare com CNAME Flattening no domínio raiz e validação CNAME do certificado ACM.*
 
 ---
@@ -74,6 +76,7 @@ Como o protocolo DNS tradicional não permite registros `CNAME` na raiz de um do
   3. Criação de invalidação no CloudFront (`/*`) para garantir que alterações no site reflitam imediatamente na borda.
 
 ![Política IAM customizada aplicando o princípio do menor privilégio](./assets/iam_policy_menor_privilegio_deploy.png)
+
 *Figura 3 — Política de permissões (IAM Policy) restrita apenas às operações de sincronização no bucket S3 e invalidação de cache no CloudFront.*
 
 ---
@@ -89,6 +92,7 @@ Como o protocolo DNS tradicional não permite registros `CNAME` na raiz de um do
 * **Solução:** Atualização da **Trust Policy** (Relação de Confiança) da *IAM Role* com o `sub` exato contendo os IDs imutáveis do usuário e do repositório, garantindo correspondência estrita sem o uso de curingas (`*`). Após a validação do pipeline, o passo de debug foi removido do YAML e os logs da execução de teste foram excluídos por higiene de segurança.
 
 ![Relação de confiança (Trust Relationship) OIDC restrita ao repositório](./assets/iam_trust_relationship_oidc_github_actions.png)
+
 *Figura 4 — Relação de confiança (Trust Policy) configurada com `StringEquals` e os IDs imutáveis do repositório no GitHub.*
 
 * **Lições:**
