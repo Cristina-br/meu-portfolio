@@ -72,7 +72,7 @@ Como o protocolo DNS tradicional não permite registros `CNAME` na raiz de um do
 * **Decisão:** Em vez de gerar um usuário IAM com `AWS_ACCESS_KEY_ID` e `AWS_SECRET_ACCESS_KEY` fixas, foi configurado um **Identity Provider (OIDC)** no AWS IAM vinculado exclusivamente ao repositório `Cristina-br/meu-portfolio` (branch `main`).
 * **Fluxo do Pipeline (`.github/workflows/deploy.yml`):**
   1. Autenticação temporária na AWS via `aws-actions/configure-aws-credentials` assumindo uma *IAM Role* com permissões restritas ao bucket S3 e à distribuição do CloudFront.
-  2. Sincronização dos arquivos estáticos com `aws s3 sync . s3://$S3_BUCKET_NAME --delete`, excluindo arquivos internos do repositório (`.git/*`, `.github/*`, `README.md`, `labs/*`).
+  2. Sincronização dos arquivos estáticos com `aws s3 sync . s3://$S3_BUCKET_NAME --delete` (removendo do bucket arquivos que foram deletados localmente), utilizando `--exclude` para ignorar arquivos internos do repositório (`.git/*`, `.github/*`, `README.md`, `labs/*`) durante a transferência.
   3. Criação de invalidação no CloudFront (`/*`) para garantir que alterações no site reflitam imediatamente na borda.
 
 ![Política IAM customizada aplicando o princípio do menor privilégio](./assets/iam_policy_menor_privilegio_deploy.png)
