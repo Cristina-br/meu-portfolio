@@ -42,6 +42,7 @@ Migrar a hospedagem de um portfólio estático (HTML, CSS e JavaScript puro) do 
 ### 3.1. Armazenamento Privado com Amazon S3 + CloudFront (OAC)
 * **Decisão:** O bucket S3 foi configurado com **Block All Public Access** ativado (sem *Static Website Hosting* público).
 * **Por quê:** Evita a exposição direta do bucket na internet e impede que usuários contornem as políticas de cache e segurança da CDN. O acesso aos objetos é restrito exclusivamente à distribuição do CloudFront por meio de **Origin Access Control (OAC)** e uma *Bucket Policy* específica.
+* **Roteamento e Tratamento de Erros (`Default Root Object` e `404.html`):** Como o modo *Static Website Hosting* do S3 permanece desativado, o CloudFront foi configurado com `index.html` como *Default Root Object* para servir a página principal na raiz (`/`). Além disso, como buckets privados com OAC retornam `403 Forbidden` para objetos inexistentes (por segurança, para não expor a listagem do bucket), foram configuradas *Custom Error Responses* mapeando tanto o código `403` quanto o `404` para a página `/404.html` com status HTTP `404 Not Found`.
 
 ![Configuração do Origin Access Control (OAC) no CloudFront](./assets/cloudfront_oac_config.png)
 
