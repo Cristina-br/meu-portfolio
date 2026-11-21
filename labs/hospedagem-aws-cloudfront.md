@@ -69,15 +69,20 @@ Como o protocolo DNS tradicional não permite registros `CNAME` na raiz de um do
 ---
 
 ### 3.4. Pipeline de CI/CD Sem Chaves Estáticas (GitHub Actions + OIDC)
-* **Decisão:** Em vez de gerar um usuário IAM com `AWS_ACCESS_KEY_ID` e `AWS_SECRET_ACCESS_KEY` fixas, foi configurado um **Identity Provider (OIDC)** no AWS IAM vinculado exclusivamente ao repositório `Cristina-br/meu-portfolio` (branch `main`).
-* **Fluxo do Pipeline (`.github/workflows/deploy.yml`):**
-  1. Autenticação temporária na AWS via `aws-actions/configure-aws-credentials` assumindo uma *IAM Role* com permissões restritas ao bucket S3 e à distribuição do CloudFront.
-  2. Sincronização dos arquivos estáticos com `aws s3 sync . s3://$S3_BUCKET_NAME --delete` (removendo do bucket arquivos que foram deletados localmente), utilizando `--exclude` para ignorar arquivos internos do repositório (`.git/*`, `.github/*`, `README.md`, `labs/*`) durante a transferência.
-  3. Criação de invalidação no CloudFront (`/*`) para garantir que alterações no site reflitam imediatamente na borda.
+- **Decisão:** Em vez de gerar um usuário IAM com `AWS_ACCESS_KEY_ID` e `AWS_SECRET_ACCESS_KEY` fixas, foi configurado um **Identity Provider (OIDC)** no AWS IAM vinculado exclusivamente ao repositório `Cristina-br/meu-portfolio` (branch `main`), assumindo uma *IAM Role* com permissões restritas pelo princípio do menor privilégio.
 
 ![Política IAM customizada aplicando o princípio do menor privilégio](./assets/iam_policy_menor_privilegio_deploy.png)
 
 *Figura 3 — Política de permissões (IAM Policy) restrita apenas às operações de sincronização no bucket S3 e invalidação de cache no CloudFront.*
+
+- **Fluxo do Pipeline (`.github/workflows/deploy.yml`):**
+  1. Autenticação temporária na AWS via `aws-actions/configure-aws-credentials` obtendo credenciais de curta duração via OIDC.
+  2. Sincronização dos arquivos estáticos com `aws s3 sync . s3://$S3_BUCKET_NAME --delete` (removendo do bucket arquivos que foram deletados localmente), utilizando `--exclude` para ignorar arquivos internos do repositório (`.git/*`, `.github/*`, `README.md`, `labs/*`) durante a transferência.
+  3. Criação de invalidação no CloudFront (`/*`) para garantir que alterações no site reflitam imediatamente na borda.
+
+![Trecho do workflow deploy.yml com etapas de deploy via OIDC](./assets/workflow_deploy_yml.png)
+
+*Figura 4 — Etapas de autenticação via OIDC, sincronização seletiva com o S3 e invalidação de cache no `.github/workflows/deploy.yml`.*
 
 ---
 
@@ -93,7 +98,7 @@ Como o protocolo DNS tradicional não permite registros `CNAME` na raiz de um do
 
 ![Relação de confiança (Trust Relationship) OIDC restrita ao repositório](./assets/iam_trust_relationship_oidc_github_actions.png)
 
-*Figura 4 — Relação de confiança (Trust Policy) configurada com `StringEquals` e os IDs imutáveis do repositório no GitHub.*
+*Figura 5 — Relação de confiança (Trust Policy) configurada com `StringEquals` e os IDs imutáveis do repositório no GitHub.*
 
 * **Lições:**
   * Diferenciar claramente **Trust Policy** (quem pode assumir a role) de **Permissions Policy** (quais ações a role pode executar na AWS) evita alterações no lugar errado durante o troubleshooting.
