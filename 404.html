@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>404 — Página não encontrada | Cristina Elena Campos</title>
+
+    <meta
+      name="description"
+      content="A página solicitada não foi encontrada no portfólio de Cristina Elena Campos."
+    />
+
+    <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
+
+    <header class="site-header" id="topo">
+      <div class="container nav-wrapper">
+        <a class="brand" href="/">Cristina Elena Campos</a>
+
+        <nav aria-label="Navegação principal">
+          <ul class="nav-list">
+            <li><a href="/#sobre">Sobre</a></li>
+            <li><a href="/#conhecimentos">Conhecimentos</a></li>
+            <li><a href="/#certificacoes">Certificações</a></li>
+            <li><a href="/#laboratorios">Laboratórios</a></li>
+            <li><a href="/#experiencia">Experiência</a></li>
+            <li><a href="/#formacao">Formação</a></li>
+            <li><a href="/#contato">Contato</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      <section class="hero" aria-labelledby="erro-titulo">
+        <div class="container section-content">
+          <p class="eyebrow">Erro 404</p>
+
+          <h1 id="erro-titulo">Página não encontrada</h1>
+
+          <p class="hero-text">
+            O endereço que você tentou acessar não existe, foi movido ou está
+            indisponível no momento.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="/">
+              Voltar para o portfólio
+            </a>
+
+            <a class="button button-secondary" href="/#laboratorios">
+              Ver laboratórios
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© <span id="current-year"></span> Cristina Elena Campos.</p>
+      </div>
+    </footer>
+
+    <script>
+      const yearEl = document.getElementById("current-year");
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
