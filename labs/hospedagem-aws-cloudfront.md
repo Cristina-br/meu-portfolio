@@ -93,7 +93,7 @@ Como o protocolo DNS tradicional não permite registros `CNAME` na raiz de um do
 
 ![Relação de confiança (Trust Relationship) OIDC restrita ao repositório](./assets/iam_trust_relationship_oidc_github_actions.png)
 
-*Figura 4 — Relação de confiança (Trust Policy) configurada com `StringLike` e os IDs imutáveis do repositório no GitHub.*
+*Figura 4 — Relação de confiança (Trust Policy) configurada com `StringEquals` e os IDs imutáveis do repositório no GitHub.*
 
 * **Lições:**
   * Diferenciar claramente **Trust Policy** (quem pode assumir a role) de **Permissions Policy** (quais ações a role pode executar na AWS) evita alterações no lugar errado durante o troubleshooting.
