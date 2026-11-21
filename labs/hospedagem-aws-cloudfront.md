@@ -86,7 +86,7 @@ Como o protocolo DNS tradicional não permite registros `CNAME` na raiz de um do
 * **Causa Raiz:** O GitHub estava emitindo o token OIDC utilizando o formato estendido com os IDs numéricos imutáveis da conta e do repositório (proteção contra *repository/username hijacking*), enquanto a *Trust Policy* aguardava o formato tradicional baseado apenas nos nomes:
   * **Esperado inicialmente:** `repo:Cristina-br/meu-portfolio:ref:refs/heads/main`
   * **Enviado pelo GitHub:** `repo:Cristina-br@<USER_ID>/meu-portfolio@<REPO_ID>:ref:refs/heads/main`
-* **Solução:** Atualização da **Trust Policy** (Relação de Confiança) da *IAM Role* com o `sub` exato contendo os IDs imutáveis e alteração do operador de condição de `StringLike` para `StringEquals`, tornando a validação mais restritiva. Após a validação do pipeline, o passo de debug foi removido do YAML e os logs da execução de teste foram excluídos por higiene de segurança.
+* **Solução:** Atualização da **Trust Policy** (Relação de Confiança) da *IAM Role* com o `sub` exato contendo os IDs imutáveis do usuário e do repositório, garantindo correspondência estrita sem o uso de curingas (`*`). Após a validação do pipeline, o passo de debug foi removido do YAML e os logs da execução de teste foram excluídos por higiene de segurança.
 
 ![Relação de confiança (Trust Relationship) OIDC restrita ao repositório](./assets/iam_trust_relationship_oidc_github_actions.png)
 *Figura 4 — Relação de confiança (Trust Policy) configurada com `StringEquals` e os IDs imutáveis do repositório no GitHub.*
