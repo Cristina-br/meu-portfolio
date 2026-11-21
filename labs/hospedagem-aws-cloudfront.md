@@ -111,7 +111,6 @@ Como o protocolo DNS tradicional não permite registros `CNAME` na raiz de um do
 
 ## 5. Próximos Passos
 
-* [ ] Subir os prints das configurações (IAM Policy, Cloudflare DNS/Redirect Rule e GitHub Actions) para `labs/assets/` e vinculá-los nesta documentação.
 * [ ] Implementar backend serverless (AWS Lambda + API Gateway + Amazon SES) para o formulário de contato com envio autenticado pelo domínio próprio (`@cristinaecampos.com.br` e registros SPF/DKIM/DMARC na Cloudflare).
 * [ ] Configurar alertas de orçamento no **AWS Budgets** e monitorar métricas de requisições no CloudFront.
 * [ ] Evoluir a arquitetura para suportar uma seção de blog técnico no portfólio.
